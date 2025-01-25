@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiqaya AI</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav ul { 
+      list-style: none; 
+      padding: 0; 
+      margin: 10px 0 0; 
+      display: flex; 
+      justify-content: center; 
+    }
+    nav ul li { margin: 0 15px; }
+    nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+    nav ul li a:hover { text-decoration: underline; }
+    main { padding: 20px; }
+    .section { margin-bottom: 30px; }
+    .section h2 { color: #007BFF; border-left: 4px solid #007BFF; padding-left: 10px; }
+    .card { 
+      background-color: white; 
+      border: 1px solid #ddd; 
+      border-radius: 8px; 
+      padding: 20px; 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+      margin-bottom: 20px; 
+    }
+    .card h3 { color: #007BFF; }
+    button { 
+      background-color: #007BFF; 
+      color: white; 
+      border: none; 
+      padding: 10px 15px; 
+      border-radius: 5px; 
+      cursor: pointer; 
+      font-weight: bold; 
+    }
+    button:hover { background-color: #0056b3; }
+    input { 
+      width: 100%; 
+      padding: 10px; 
+      margin: 10px 0; 
+      border: 1px solid #ddd; 
+      border-radius: 5px; 
+    }
+    footer { 
+      background-color: #007BFF; 
+      color: white; 
+      text-align: center; 
+      padding: 10px; 
+      margin-top: 20px; 
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); 
+    }
+    canvas { display: block; margin: 20px auto; max-width: 100%; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Wiqaya AI</h1>
+    <nav>
+      <ul>
+        <li><a href="#dashboard">Home</a></li>
+        <li><a href="#monitoring">Monitoring</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#education">Education</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- Home Dashboard Section -->
+    <section id="dashboard" class="section">
+      <h2>Home Dashboard</h2>
+      <div class="card">
+        <h3>Daily Overview</h3>
+        <p>Steps: <span id="steps">8,000</span></p>
+        <p>Calories: <span id="calories">2,000</span></p>
+        <p>Water Intake: <span id="water">2L</span></p>
+      </div>
+      <button onclick="updateOverview()">Update Data</button>
+    </section>
+
+    <!-- Health Monitoring Section -->
+    <section id="monitoring" class="section">
+      <h2>Health Monitoring</h2>
+      <div class="card">
+        <form id="monitorForm">
+          <label for="age">Age:</label>
+          <input type="number" id="age" placeholder="Enter your age">
+          <label for="weight">Weight (kg):</label>
+          <input type="number" id="weight" placeholder="Enter your weight">
+          <label for="bp">Blood Pressure (e.g., 120/80):</label>
+          <input type="text" id="bp" placeholder="Enter your blood pressure">
+          <button type="button" onclick="processHealthData()">Analyze</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Personalized Insights Section -->
+    <section id="insights" class="section">
+      <h2>Personalized Insights</h2>
+      <div class="card">
+        <h3>Health Predictions</h3>
+        <p id="healthPrediction">Enter your data to see insights.</p>
+      </div>
+      <canvas id="healthChart" width="400" height="200"></canvas>
+
+
+      <section id="community" class="section">
+        <h2>Community Forum</h2>
+        <div class="card">
+          <h3>Share Your Health Journey</h3>
+          <textarea id="postMessage" placeholder="Share your experience..." rows="4"></textarea>
+          <button onclick="postMessage()">Post</button>
+          <div id="messages"></div>
+        </div>
+      </section>
+      
+      <script>
+        let messages = [];
+      
+        function postMessage() {
+          const message = document.getElementById("postMessage").value;
+          if (message.trim() === "") {
+            alert("Please enter a message.");
+            return;
+          }
+      
+          messages.push(message);
+          document.getElementById("postMessage").value = "";
+          displayMessages();
+        }
+      
+        function displayMessages() {
+          const messageBoard = document.getElementById("messages");
+          messageBoard.innerHTML = "";
+          messages.forEach((msg, index) => {
+            messageBoard.innerHTML += `<p><strong>User ${index + 1}:</strong> ${msg}</p>`;
+          });
+        }
+      </script>
+      
+
+      <section id="education" class="section">
+        <h2>Educational Content</h2>
+        <div class="card">
+          <h3>Recommended Videos</h3>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=example" target="_blank">Video on Healthy Eating</a></li>
+            <li><a href="https://www.youtube.com/watch?v=example" target="_blank">Video on Exercise for Weight Loss</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Recommended Articles</h3>
+          <ul>
+            <li><a href="https://www.example.com/article1" target="_blank">How to Maintain a Healthy Weight</a></li>
+            <li><a href="https://www.example.com/article2" target="_blank">Understanding Your Blood Pressure</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Health Quiz</h3>
+          <p><a href="https://www.example.com/quiz" target="_blank">Take the Health Quiz</a></p>
+        </div>
+      </section>
+      
+
+
+    </section>
+
+
+
+
+
+  </main>
+  <footer>
+    <p>© 2025 Wiqaya AI. All Rights Reserved.</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+
+function generateHealthTips(bmi, systolic, diastolic) {
+  let tips = "";
+
+  // Health tips based on BMI
+  if (bmi < 18.5) {
+    tips += "You are underweight. Consider consulting a healthcare provider for proper diet advice.\n";
+  } else if (bmi > 25) {
+    tips += "You are overweight. Try to maintain a healthy diet and regular exercise.\n";
+  } else {
+    tips += "Your BMI is healthy. Keep up the good work with your health!\n";
+  }
+
+  // Health tips based on blood pressure
+  if (systolic > 130 || diastolic > 80) {
+    tips += "You have high blood pressure. Monitor it regularly and follow a healthy lifestyle.\n";
+  } else {
+    tips += "Your blood pressure is normal. Keep maintaining a balanced lifestyle.\n";
+  }
+
+  alert(tips);
+}
+
+// Update processHealthData function to call generateHealthTips
+function processHealthData() {
+  const age = document.getElementById("age").value;
+  const weight = document.getElementById("weight").value;
+  const bp = document.getElementById("bp").value;
+
+  if (!age || !weight || !bp) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const [systolic, diastolic] = bp.split("/").map(Number);
+  if (!systolic || !diastolic || systolic < 50 || systolic > 200 || diastolic < 30 || diastolic > 130) {
+    alert("Please enter a valid blood pressure.");
+    return;
+  }
+
+  const bmi = (weight / ((1.7) ** 2)).toFixed(1); // Assume 1.7m height for simplicity
+
+  // Generate insights based on age, BMI, and BP
+  const insights = `
+    - Age: ${age} years
+    - Weight: ${weight}kg 
+    - BMI: ${bmi} (${bmi > 25 ? "Overweight" : bmi < 18.5 ? "Underweight" : "Healthy"})
+    - Blood Pressure: Systolic ${systolic}, Diastolic ${diastolic} 
+      (Risk: ${systolic > 130 || diastolic > 80 ? "High" : "Normal"})
+  `;
+  document.getElementById("healthPrediction").textContent = insights;
+
+  generateHealthTips(bmi, systolic, diastolic); // Call the health tips function
+
+  updateChart([age, bmi, systolic, diastolic]);
+}
+
+
+
+
+    // Update Dashboard
+    function updateOverview() {
+      document.getElementById("steps").textContent = Math.floor(Math.random() * 10000);
+      document.getElementById("calories").textContent = Math.floor(Math.random() * 3000);
+      document.getElementById("water").textContent = `${Math.floor(Math.random() * 3)}L`;
+    }
+
+    // Process Health Data and Show Insights
+    function processHealthData() {
+      const age = document.getElementById("age").value;
+      const weight = document.getElementById("weight").value;
+      const bp = document.getElementById("bp").value;
+
+      if (!age || !weight || !bp) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const [systolic, diastolic] = bp.split("/").map(Number);
+      if (!systolic || !diastolic || systolic < 50 || systolic > 200 || diastolic < 30 || diastolic > 130) {
+        alert("Please enter a valid blood pressure.");
+        return;
+      }
+
+      const bmi = (weight / ((1.7) ** 2)).toFixed(1); // Assume 1.7m height for simplicity
+
+      // Generate insights based on age, BMI, and BP
+      const insights = `
+        - Age: ${age} years
+        - Weight: ${weight}kg 
+        - BMI: ${bmi} (${bmi > 25 ? "Overweight" : bmi < 18.5 ? "Underweight" : "Healthy"})
+        - Blood Pressure: Systolic ${systolic}, Diastolic ${diastolic} 
+          (Risk: ${systolic > 130 || diastolic > 80 ? "High" : "Normal"})
+      `;
+      document.getElementById("healthPrediction").textContent = insights;
+
+      updateChart([age, bmi, systolic, diastolic]);
+    }
+
+    // Render Chart
+    let chart;
+    function updateChart(data) {
+      const ctx = document.getElementById("healthChart").getContext("2d");
+
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Age", "BMI", "Systolic BP", "Diastolic BP"],
+          datasets: [{
+            label: "Health Data",
+            data: data,
+            backgroundColor: ["#007BFF", "#28A745", "#FFC107", "#FF5733"]
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
