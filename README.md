@@ -1,1 +1,1 @@
-wiqayaai.github.io
+wiqayaai.github.io/Wiqayah
